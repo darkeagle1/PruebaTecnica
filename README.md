@@ -1,24 +1,45 @@
-# Tasks Frontend (Angular 14+)
+# Tasks Frontend (Angular 16+)
 
-## Requisitos
-- Node.js 16+
-- Angular CLI 14+
+Aplicación de gestión de tareas desarrollada en Angular, con arquitectura modular, servicios y componentes reutilizables. Incluye paginación, validaciones de formularios, manejo de estados y una interfaz profesional basada en Angular Material.
 
-## Cómo levantar el frontend
-1. Abre una terminal en esta carpeta (`tasks-frontend`).
-2. Ejecuta:
+## Requisitos Previos
+- Node.js 16 o superior
+- Angular CLI 16 o superior
+
+## Instalación y Ejecución
+1. Clona este repositorio y navega a la carpeta del frontend.
+2. Instala las dependencias:
    ```sh
    npm install
+   ```
+3. Inicia la aplicación en modo desarrollo:
+   ```sh
    ng serve
    ```
-3. Accede a la app en: `http://localhost:4200`
+4. Accede desde tu navegador a: [http://localhost:4200](http://localhost:4200)
 
----
+## Conexión con el Backend
+- El frontend espera que el backend esté disponible en `http://localhost:5032`.
+- Si necesitas cambiar la URL del backend, edita el archivo `src/environments/environment.ts` (`apiUrl`).
 
-## Notas
-- UI basada en Angular Material
-- Formularios reactivos y validaciones
-- Paginación, spinner de carga y manejo de estados
-- Comunicación con backend por HttpClient
+## Funcionalidades Principales
+- **Lista de tareas** con paginación.
+- **Crear, editar y eliminar tareas**.
+- **Cambiar estado** de la tarea (Pendiente, En Progreso, Completada).
+- **Validaciones** en formularios reactivos.
+- **Manejo de carga** y feedback visual con spinner.
+- **Interfaz moderna** usando Angular Material.
 
-> Asegúrate de tener el backend corriendo en `http://localhost:5000` (puedes cambiar la URL en `environment.ts` si es necesario).
+## Estructura del Proyecto
+```
+src/
+  app/
+    tasks/
+      task-list/      # Componente para listar tareas
+      task-form/      # Componente para crear/editar tareas
+      task.model.ts   # Modelo de datos de tarea
+      task.service.ts # Servicio para comunicación con backend
+    app.module.ts     # Módulo principal
+  environments/       # Configuración de entornos
+```
+
