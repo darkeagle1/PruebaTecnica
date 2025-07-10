@@ -1,0 +1,13 @@
+.spinner-container { display: flex; align-items: center; justify-content: center; height: 200px; }
+table { width: 100%; margin-top: 1rem; }
+mat-paginator { margin-top: 1rem; }
+
+/* Ajuste de tamaño para los íconos de acción */
+td.mat-column-actions button.mat-icon-button {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+}
+td.mat-column-actions mat-icon {
+  font-size: 18px;
+}

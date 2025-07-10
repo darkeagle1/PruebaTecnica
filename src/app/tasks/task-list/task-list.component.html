@@ -1,0 +1,44 @@
+<div *ngIf="loading" class="spinner-container">
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="!loading">
+  <button mat-raised-button color="primary" (click)="openForm()">Nueva tarea</button>
+  <table mat-table [dataSource]="tasks" class="mat-elevation-z8">
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Título</th>
+      <td mat-cell *matCellDef="let task">{{task.title}}</td>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Descripción</th>
+      <td mat-cell *matCellDef="let task">{{task.description}}</td>
+    </ng-container>
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>Creada</th>
+      <td mat-cell *matCellDef="let task">{{task.createdAt | date:'short'}}</td>
+    </ng-container>
+    <ng-container matColumnDef="dueDate">
+      <th mat-header-cell *matHeaderCellDef>Fecha límite</th>
+      <td mat-cell *matCellDef="let task">{{task.dueDate ? (task.dueDate | date:'shortDate') : '-'}}</td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let task">
+        <mat-select [value]="task.status" (selectionChange)="changeStatus(task, $event.value)">
+          <mat-option [value]="0">Pendiente</mat-option>
+          <mat-option [value]="1">En Progreso</mat-option>
+          <mat-option [value]="2">Completada</mat-option>
+        </mat-select>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let task">
+        <button mat-icon-button (click)="openForm(task)"><mat-icon>editar</mat-icon></button>
+        <button mat-icon-button color="warn" (click)="deleteTask(task.id)"><mat-icon>eliminar</mat-icon></button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [length]="total" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" (page)="onPage($event)"></mat-paginator>
+</div>
