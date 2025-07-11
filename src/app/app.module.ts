@@ -18,14 +18,21 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AppComponent } from './app.component';
 import { TaskListComponent } from './tasks/task-list/task-list.component';
 import { TaskFormComponent } from './tasks/task-form/task-form.component';
-
+import { LoginComponent } from './auth/login.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatError } from '@angular/material/form-field';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskListComponent,
-    TaskFormComponent
+    TaskFormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -45,9 +52,13 @@ import { AppRoutingModule } from './app-routing.module';
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatCardModule,
+    MatFormFieldModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

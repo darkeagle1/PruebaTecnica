@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 
+import { AuthService } from './auth/auth.service';
+
 @Component({
   selector: 'app-root',
-  template: `
-    <mat-toolbar color="primary">
-      <span>Gestión de Tareas</span>
-    </mat-toolbar>
-    <div class="main-content">
-      <app-task-list></app-task-list>
-    </div>
-  `,
-  styles: [`.main-content { padding: 2rem; max-width: 800px; margin: auto; }`]
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent { }
+export class AppComponent {
+  constructor(public auth: AuthService) {}
+
+  logout() {
+    this.auth.logout();
+  }
+}

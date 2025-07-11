@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getSpanishPaginatorIntl } from './paginator-intl';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageEvent } from '@angular/material/paginator';
@@ -15,15 +17,18 @@ export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
   total = 0;
   loading = false;
-  page = 1;
+  page = 0;
   pageSize = 5;
   displayedColumns = ['title', 'description', 'createdAt', 'dueDate', 'status', 'actions'];
 
   constructor(
     private taskService: TaskService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
-  ) {}
+    private snackBar: MatSnackBar,
+    paginatorIntl: MatPaginatorIntl
+  ) {
+    Object.assign(paginatorIntl, getSpanishPaginatorIntl());
+  }
 
   ngOnInit() {
     this.fetchTasks();
@@ -31,7 +36,8 @@ export class TaskListComponent implements OnInit {
 
   fetchTasks() {
     this.loading = true;
-    this.taskService.getTasks(this.page, this.pageSize).subscribe({
+    // Sumar 1 para la API (si la API espera base 1)
+    this.taskService.getTasks(this.page + 1, this.pageSize).subscribe({
       next: (res: { tasks: Task[]; total: number; }) => {
         this.tasks = res.tasks;
         this.total = res.total;
@@ -45,7 +51,7 @@ export class TaskListComponent implements OnInit {
   }
 
   onPage(event: PageEvent) {
-    this.page = event.pageIndex + 1;
+    this.page = event.pageIndex;
     this.pageSize = event.pageSize;
     this.fetchTasks();
   }

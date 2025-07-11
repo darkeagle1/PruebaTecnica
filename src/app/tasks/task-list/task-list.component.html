@@ -2,7 +2,7 @@
   <mat-spinner></mat-spinner>
 </div>
 <div *ngIf="!loading">
-  <button mat-raised-button color="primary" (click)="openForm()">Nueva tarea</button>
+  <button mat-raised-button color="primary" (click)="openForm()" class="new-task-btn">Nueva tarea</button>
   <table mat-table [dataSource]="tasks" class="mat-elevation-z8">
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef>Título</th>
@@ -40,5 +40,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator [length]="total" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" (page)="onPage($event)"></mat-paginator>
+  <mat-paginator [length]="total" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" (page)="onPage($event)" #paginator></mat-paginator>
 </div>
